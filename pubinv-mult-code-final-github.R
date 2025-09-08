@@ -53,6 +53,7 @@ mult_from_ratio <- function(gdp_lp, ratio_lp, r_share) {
   mult <- out$X / Dsafe
   dMdX <- out$R / (Dsafe^2)
   dMdR <- -out$X / (Dsafe^2)
+  #Delta method
   se_M <- sqrt((dMdX^2) * (se_X^2) + (dMdR^2) * (se_R^2))
   
   tibble(h = out$h, multiplier = mult, lo_1se = mult - se_M, hi_1se = mult + se_M)
@@ -232,7 +233,5 @@ print(mult_rob3)
 dt_no_irl <- subset(dt, ccode != "IRL")
 rbar_no_irl <- mean(dt_no_irl$PUBINVRATIO, na.rm = TRUE)
 if (!is.na(rbar_no_irl) && rbar_no_irl > 1) rbar_no_irl <- rbar_no_irl / 100
-
-# Use baseline controls and baseline lag length for comparability
 mult_rob4 <- run_mult(ctrl_base, lags = 2, data_set = dt_no_irl, r_share = rbar_no_irl)
 print(mult_rob4)
