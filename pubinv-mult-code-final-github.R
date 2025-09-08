@@ -32,7 +32,7 @@ cum_irf <- function(obj, scale = 1) {
   )
 }
 
-# standard error bands
+# standard error bands (symmetrical)
 se_from_bands <- function(mid, lo, hi) {
   0.5 * ((hi - mid) + (mid - lo))
 }
@@ -56,7 +56,6 @@ mult_from_ratio <- function(gdp_lp, ratio_lp, r_share) {
   #Delta method
   dMdX <- out$R / (Dsafe^2)
   dMdR <- -out$X / (Dsafe^2)
-  #Delta method
   se_M <- sqrt((dMdX^2) * (se_X^2) + (dMdR^2) * (se_R^2))
   
   tibble(h = out$h, multiplier = mult, lo_1se = mult - se_M, hi_1se = mult + se_M)
