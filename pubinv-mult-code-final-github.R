@@ -48,9 +48,12 @@ mult_from_ratio <- function(gdp_lp, ratio_lp, r_share) {
   
   # adjust for impact of change in GDP on investment ratio
   den_pp <- out$R + r_share * out$X
+  #safety net against 0 value
   Dsafe  <- pmax(den_pp, 1e-12)
   
   mult <- out$X / Dsafe
+  
+  #Delta method
   dMdX <- out$R / (Dsafe^2)
   dMdR <- -out$X / (Dsafe^2)
   #Delta method
