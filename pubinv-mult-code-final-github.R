@@ -178,8 +178,6 @@ layout_base <- ggarrange(g_mult, g_unem, g_priv, g_debt,
                          labels = c("A)", "B)", "C)", "D)"),
                          ncol = 2, nrow = 2, common.legend = TRUE, legend = "bottom")
 
-ggsave("econometric_results_BMF.jpg", plot = layout_base, width = 10, height = 6, bg = "white")
-
 ## Robustness checks
 # Updated helper to allow custom dataset and rbar (defaults preserve prior behavior)
 run_mult <- function(ctrls, lags, data_set = dt, r_share = rbar) {
